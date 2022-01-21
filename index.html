@@ -97,10 +97,10 @@
         let activeUserName;
         let activeUserObjectId;
 
-        const getUserId = (userName) => {
+        const getUserProperty = (userName, property) => {
           return users.find(
             (u) => u.shortName.toLowerCase() === userName.toLowerCase()
-          ).oid;
+          )[property];
         };
 
         while (!activeUserObjectId) {
@@ -114,7 +114,7 @@
               .map((u) => u.shortName.toLowerCase())
               .includes(activeUserName.toLowerCase())
           ) {
-            activeUserObjectId = getUserId(activeUserName);
+            activeUserObjectId = getUserProperty(activeUserName, 'oid');
           }
         }
 
