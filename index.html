@@ -70,20 +70,20 @@
         */
         // Note that participants list will be this list, in reverse order (last->first)
         const users = [
-          { userName: 'Thomas Fair', oid: 2 },
-          { userName: 'Russell Sands', oid: 1 },
-          { userName: 'Chris Nickola', oid: 5 },
-          { userName: 'Sajit Thomas', oid: 10 },
-          { userName: 'Brady Cline', oid: 11 },
-          { userName: 'Kyle Richardson', oid: 12 },
-          { userName: 'Lynn LaMott', oid: 13 },
-          { userName: 'Nathan Pinder', oid: 14 },
-          { userName: 'Noah Moss', oid: 15 },
-          { userName: 'Keith Balaniz', oid: 16 },
-          { userName: 'Jonathan Katzeff', oid: 17 },
-          { userName: 'Briley Barnwell', oid: 18 },
-          { userName: 'Arif Masrur', oid: 19 },
-          { userName: 'Kevin Bolger', oid: 20 },
+          { userName: 'Thomas Fair', shortName: 'Thomas', oid: 2 },
+          { userName: 'Russell Sands', shortName: 'Russell', oid: 1 },
+          { userName: 'Chris Nickola', shortName: 'Chris', oid: 5 },
+          { userName: 'Sajit Thomas', shortName: 'Sajit', oid: 10 },
+          { userName: 'Brady Cline', shortName: 'Brady', oid: 11 },
+          { userName: 'Kyle Richardson', shortName: 'Kyle', oid: 12 },
+          { userName: 'Lynn LaMott', shortName: 'Lynn', oid: 13 },
+          { userName: 'Nathan Pinder', shortName: 'Nathan', oid: 14 },
+          { userName: 'Noah Moss', shortName: 'Noah', oid: 15 },
+          { userName: 'Keith Balaniz', shortName: 'Keith', oid: 16 },
+          { userName: 'Jonathan Katzeff', shortName: 'Jonathan', oid: 17 },
+          { userName: 'Briley Barnwell', shortName: 'Briley', oid: 18 },
+          { userName: 'Arif Masrur', shortName: 'Arif', oid: 19 },
+          { userName: 'Kevin Bolger', shortName: 'Kevin', oid: 20 },
         ];
 
         // Authenticate to the ArcGIS Platform
@@ -98,16 +98,22 @@
         let activeUserObjectId;
 
         const getUserId = (userName) => {
-          return users.find((u) => u.userName === userName).oid;
+          return users.find(
+            (u) => u.shortName.toLowerCase() === userName.toLowerCase()
+          ).oid;
         };
 
         while (!activeUserObjectId) {
           // TODO - Does not work if user is undefined >>> improve the while condition
-          const usersList = users.map((u) => u.userName).join(' | ');
+          const usersList = users.map((u) => u.shortName).join(' | ');
           activeUserName = prompt(
             'Please enter your name.\nChoose From: ' + usersList
           );
-          if (users.map((u) => u.userName).includes(activeUserName)) {
+          if (
+            users
+              .map((u) => u.shortName.toLowerCase())
+              .includes(activeUserName.toLowerCase())
+          ) {
             activeUserObjectId = getUserId(activeUserName);
           }
         }
